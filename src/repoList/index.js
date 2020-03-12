@@ -1,7 +1,10 @@
 import { gql } from 'apollo-boost';
 import { useQuery, useLazyQuery } from '@apollo/react-hooks';
 import React from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Card } from 'antd';
+import moment from 'moment';
+
+import s from './styles.sass';
 
 const GET_VIEWER = gql`
   query GET_VIEWER {
@@ -31,6 +34,7 @@ const GET_USER_REPOS = gql`
         description
         createdAt
         updatedAt
+        pushedAt
         owner {
           id
           login
@@ -61,35 +65,34 @@ const RepoList = props => {
   if (viewerQuery.error || userReposQuery.error) return (<p>Error: {error}</p>);
 
   return (
-    <div>
+    <Col span={20} className={s.wrapper}>
       <p>
-        {'login is: '}
-        {JSON.stringify(viewerQuery.data.viewer.login)}
+        {'logined as '}
+        {viewerQuery.data.viewer.login}
       </p>
       {userReposQuery.data && (
-        <>
-          <p>
-            {'repos are: '}
-          </p>
-          {userReposQuery.data.user.repositories.nodes
-            .reduce((prev, cur, idx) => {
-              // group by 3
-              if (idx % 3 === 0) {
-                prev.push([cur])
-              } else {
-                prev[prev.length - 1].push(cur);
-              }
-            }, [])
-            .map(a => (
-              <Row>
-                <p>Name: {a.name}</p>
-                <p>Description: {a.description}</p>
-                <hr />
-              </Row>
-            ))}
-        </>
+        <div className={s.reposWrapper}>
+          {userReposQuery.data.user.repositories.nodes.map(repo => (
+            <Col className={s.cardWrapper} span={8} key={repo.id}>
+              <div className={s.card}>
+                <Card title={repo.name} bordered={false} hoverable>
+                  <p>
+                    {'Description: '}
+                    {repo.description}
+                  </p>
+                  <p>
+                    {'Last update: '}
+                    {moment(repo.pushedAt).format('DD.MM.YYYY')}
+                    {'Diff in days: '}
+                    {moment().diff(repo.pushedAt, 'days')}
+                  </p>
+                </Card>
+              </div>
+            </Col>
+          ))}
+        </div>
       )}
-    </div>
+    </Col>
   );
 };
 

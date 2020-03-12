@@ -16,15 +16,16 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.scss$/,
+        test: /\.s[ac]ss$/,
         use: [
           'style-loader',
           {
             loader: 'css-loader',
             options: {
-              modules: true,
+              modules: {
+                localIdentName: '[local]__[hash:base64:5]', // can add to beginning: [path][name]__
+              },
               sourceMap: true,
-              localIdentName: '[local]__[hash:base64:5]', // can add to beginning: [path][name]__
               // minimize: true,
             },
           },
@@ -40,7 +41,9 @@ module.exports = {
               ]
             }
           },
-          'sass-loader',
+          {
+            loader: 'sass-loader',
+          },
         ]
       },
       {
