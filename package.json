@@ -1,0 +1,51 @@
+{
+  "name": "ed_tech_test_task",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:suika1/ed_tech_test_task.git",
+  "author": "suika1 <vanyoktank1@gmail.com>",
+  "license": "ISC",
+  "scripts": {
+    "start": "webpack-dev-server"
+  },
+  "dependencies": {
+    "@apollo/react-hooks": "^3.1.3",
+    "@babel/polyfill": "^7.2.5",
+    "antd": "^4.0.2",
+    "apollo-boost": "^0.4.7",
+    "autoprefixer": "^9.5.1",
+    "classnames": "^2.2.6",
+    "graphql": "^14.6.0",
+    "moment": "^2.24.0",
+    "postcss-loader": "^3.0.0",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-router": "^5.1.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-transform-regenerator": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "@babel/preset-react": "^7.8.3",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^3.4.2",
+    "eslint": "^5.6.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-plugin-flowtype": "^3.11.1",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.12.4",
+    "file-loader": "^5.1.0",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.13.1",
+    "sass-loader": "^8.0.2",
+    "style-loader": "^1.1.3",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3",
+    "webpack-manifest-plugin": "^2.2.0"
+  }
+}
