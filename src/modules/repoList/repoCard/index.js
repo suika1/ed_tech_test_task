@@ -55,11 +55,7 @@ export const RepoCard = ({
         >
           <p>
             {'Description: '}
-            {repo.description}
-          </p>
-          <p>
-            {'Last update: '}
-            {moment(repo.pushedAt).format('DD.MM.YYYY HH:mm')}
+            {repo.description || ' *empty*'}
           </p>
         </Card>
       </div>
