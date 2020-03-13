@@ -1,20 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import ApolloClient, { gql } from 'apollo-boost';
-import { ApolloProvider, useQuery, useLazyQuery } from '@apollo/react-hooks';
-import { GITHUB_API_KEY } from '../env_variables';
-import RepoList from './repoList';
+import { Router, Switch, Route, Redirect } from 'react-router-dom';
+import { ApolloProvider } from '@apollo/react-hooks';
+import Repo from 'modules/repo';
+import RepoList from 'modules/repoList';
+import { history } from 'api/history';
+import { apolloClient } from 'api/apolloClient';
 
-const client = new ApolloClient({
-  uri: 'https://api.github.com/graphql',
-  headers: {
-    Authorization: `Bearer ${GITHUB_API_KEY}`,
-  },
-});
+const routes = [{
+  url: '/repos',
+  exact: true,
+  render: () => (
+    <RepoList />
+  ),
+}, {
+  url: '/repo/:name',
+  exact: true,
+  render: () => (
+    <Repo />
+  ),
+}];
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <RepoList />
+  <ApolloProvider client={apolloClient}>
+    <Router history={history}>
+      <Switch>
+        {routes.map(props => (
+          <Route
+            key={props.url}
+            path={props.url}
+            exact={props.exact}
+            render={props.render}
+          />
+        ))}
+
+        <Route
+          render={() => (
+            <Redirect to={routes[0].url} />
+          )}
+        />
+      </Switch>
+    </Router>
   </ApolloProvider>,
   document.getElementById('root'),
 );
